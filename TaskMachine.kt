@@ -3,19 +3,19 @@ package com.matteblack.fsm
 import com.runemate.game.api.script.framework.LoopingBot
 import java.util.*
 
-abstract class StateBot : LoopingBot() {
+abstract class TaskMachine : LoopingBot() {
 
-    private var currentState: BotState? = null
+    private var currentState: com.matteblack.fsm.State? = null
 
 
-    fun getCurrentState(): BotState? {
+    fun getCurrentState(): com.matteblack.fsm.State? {
         return currentState
     }
 
-    fun setCurrentState(value: BotState?) {
+    fun setCurrentState(value: com.matteblack.fsm.State?) {
         currentState?.onExit()
         eventDispatcher.getListeners().stream()
-            .filter { listener: EventListener? -> listener is BotState }
+            .filter { listener: EventListener? -> listener is com.matteblack.fsm.State }
             .forEach { listener: EventListener? ->
                 if (listener != null) {
                     eventDispatcher.removeListener(listener)
@@ -53,5 +53,5 @@ abstract class StateBot : LoopingBot() {
     }
 
 
-    abstract fun setDefaultState(): BotState
+    abstract fun setDefaultState(): com.matteblack.fsm.State
 }

@@ -1,17 +1,17 @@
 package com.matteblack.fsm
 
-import com.matteblack.fsm.annotations.TaskItem
+import com.matteblack.fsm.annotations.TaskField
 import java.util.ArrayList
 
-abstract class TaskState : BotState() {
+abstract class TaskState : State() {
 
     private var tasks: List<Task> = ArrayList()
 
     open fun defineTasks() {
         tasks = ArrayList()
         this::class.java.declaredFields
-            .filter { it.isAnnotationPresent(TaskItem::class.java) }
-            .sortedBy { it.getAnnotation(TaskItem::class.java).order }
+            .filter { it.isAnnotationPresent(TaskField::class.java) }
+            .sortedBy { it.getAnnotation(TaskField::class.java).order }
             .forEach { field ->
                 field.isAccessible = true
                 if (Task::class.java.isAssignableFrom(field.type)) {

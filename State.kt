@@ -1,9 +1,9 @@
 package com.matteblack.fsm
 
-import com.matteblack.fsm.annotations.TransitionItem
+import com.matteblack.fsm.annotations.TransitionField
 import kotlin.collections.ArrayList
 
-abstract class BotState() {
+abstract class State() {
     private var transitions: List<Transition> = ArrayList()
 
     open fun defineTransitions() {
@@ -11,8 +11,8 @@ abstract class BotState() {
         transitions = ArrayList()
 
         this::class.java.declaredFields
-            .filter { it.isAnnotationPresent(TransitionItem::class.java) }
-            .sortedBy { it.getAnnotation(TransitionItem::class.java).order }
+            .filter { it.isAnnotationPresent(TransitionField::class.java) }
+            .sortedBy { it.getAnnotation(TransitionField::class.java).order }
             .forEach { field ->
                 field.isAccessible = true
                 if (Transition::class.java.isAssignableFrom(field.type)) {

@@ -1,4 +1,4 @@
 package com.matteblack.fsm.annotations
 
 @Target(AnnotationTarget.FIELD)
-annotation class TaskItem(val order: Int = 0)
+annotation class TransitionField(val order: Int = 0)
