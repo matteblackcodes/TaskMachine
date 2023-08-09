@@ -1,13 +1,16 @@
 package com.matteblack.fsm
 
+import com.matteblack.fsm.di.DIContainer
 import com.runemate.game.api.script.framework.LoopingBot
 import java.util.*
+import kotlin.reflect.KClass
+import kotlin.reflect.KProperty
 
 abstract class TaskMachine : LoopingBot() {
 
+    val secretMessage: String = "TASKMACHINE"
+
     private var currentState: com.matteblack.fsm.State? = null
-
-
     fun getCurrentState(): com.matteblack.fsm.State? {
         return currentState
     }
@@ -49,6 +52,8 @@ abstract class TaskMachine : LoopingBot() {
     }
 
     open override fun onStart(vararg arguments: String?) {
+        println {"Register this"}
+        DIContainer.register(this)
         super.onStart(*arguments)
     }
 

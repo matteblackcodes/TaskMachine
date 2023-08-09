@@ -3,8 +3,8 @@
     <name>Woodcutting Example</name>
     <tag-line>Example Woodcutting StateTaskBot</tag-line>
     <internal-id>woodcutting-example</internal-id>
-    <description>An All in one fishing bot!</description>
-    <version>0.0.3</version>
+    <description></description>
+    <version>0.0.0</version>
     <compatibility>
         <game>OSRS</game>
     </compatibility>

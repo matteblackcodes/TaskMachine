@@ -4,6 +4,8 @@ import com.matteblack.fsm.GenericTransition
 import com.matteblack.fsm.TaskState
 import com.matteblack.fsm.annotations.TaskField
 import com.matteblack.fsm.annotations.TransitionField
+import com.matteblack.fsm.di.injected
+import com.matteblack.fsm.examples.woodcutting.WoodcuttingExample
 import com.matteblack.fsm.examples.woodcutting.states.tasks.BankItems
 import com.matteblack.fsm.examples.woodcutting.states.tasks.MoveToBank
 import com.matteblack.fsm.examples.woodcutting.states.tasks.OpenBank
@@ -14,7 +16,6 @@ class Banking: TaskState() {
     /** TRANSITIONS */
     @TransitionField
     val toChopping = GenericTransition({ Inventory.containsOnly("Bronze axe")}, { Chopping() })
-
 
     /** TASKS */
     @TaskField(order = 1)

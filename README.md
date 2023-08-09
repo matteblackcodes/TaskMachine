@@ -205,11 +205,54 @@ class ExampleState : State(), EngineListener {
     ...
 }
 ```
+
 TaskMachine States and TaskStates will automatically handle registering and unregistering listeners to the dispatch
 handler, all you need to do is implement the interface on your state.
 
+## Dependency Injection
+
+TaskMachine ships with a very simple DIContainer implementation.
+
+```kotlin
+class ExampleState : State() {
+    val bot: ExampleBot by injected()
+}
+```
+
+Your bot, extended by TaskMachine, automatically registers itself with the dependency container and you can access it
+from anywhere.
+Let's break this down `val bot: ExampleBot by injected()`
+adding the `by injected()` operator to this field will retrieve an instance with type of ExampleBot from the registry. 
+
+You can even register other types. Anything, really.
+
+```kotlin
+class ExampleState : State() {
+    override fun onStart() {
+        DIContainer.register(this)
+    }
+}
+```
+This will register your ExampleState with the Dependency Container. now you can do this
+
+```kotlin
+val state: ExampleState by injected()
+```
+
+This makes your state convenient to access from your tasks!
+
+You can unregister from the container as well!
+
+```kotlin
+class Example: State() {
+    override fun onExit() {
+        DIContainer.unregister(this::class)
+    }
+}
+```
+
+---
 ## What's next?
 
-The sky is the limit. TaskMachine provides a robust hybrid state/task approach to building your bots!
 I have created a very simple woodcutting bot as an example in the examples directory of this repo. Take a look for some
 inspiration and to see it in action!
